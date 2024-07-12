@@ -20,10 +20,6 @@ const Fence = (props) => {
     const postDistance = fenceProps?.fenceLength / (postProps?.numPosts - 1);
 
     const postsLeft = Array.from({ length: postProps?.numPosts }).map((_, i) => (
-        // <mesh key={i} position={[0, fenceProps?.fenceHeight / 2, i * postDistance - fenceProps?.fenceLength / 2]}>
-        //     <boxGeometry args={[0.5, fenceProps?.fenceHeight, 0.1]} />
-        //     <meshStandardMaterial color={postProps?.postColor} />
-        // </mesh>
         <mesh key={i} position={[0, fenceProps?.fenceHeight / 2, i * postDistance - fenceProps?.fenceLength / 2]}>
             <boxGeometry args={[0.1, fenceProps?.fenceHeight, 0.5]} />
             <meshStandardMaterial color={postProps?.postColor} />
@@ -31,15 +27,17 @@ const Fence = (props) => {
     ));
 
     const barsLeft = Array.from({ length: postProps?.numPosts - 1 }).map((_, i) => (
-        // <mesh key={i} position={[0, fenceProps?.fenceHeight - 0.5, (i + 0.5) * postDistance - fenceProps?.fenceLength / 2]}>
-        //     <boxGeometry args={[postDistance, 0.2, 0.05]} />
-        //     <meshStandardMaterial color={barProps?.barColor} />
-        // </mesh>
+        <group>
+            <mesh key={i} position={[0, fenceProps?.fenceHeight - 0.5, (i + 0.5) * postDistance - fenceProps?.fenceLength / 2]}>
+                <boxGeometry args={[0.05, 0.2, postDistance]} />
+                <meshStandardMaterial color={barProps?.barColor} />
+            </mesh>
 
-        <mesh key={i} position={[0, fenceProps?.fenceHeight - 0.5, (i + 0.5) * postDistance - fenceProps?.fenceLength / 2]}>
-        <boxGeometry args={[0.05, 0.2, postDistance]} />
-        <meshStandardMaterial color={barProps?.barColor} />
-        </mesh>
+            <mesh key={i} position={[0, fenceProps?.fenceHeight/2, (i + 0.5) * postDistance - fenceProps?.fenceLength / 2]}>
+                <boxGeometry args={[0.05, 1, postDistance]} />
+                <meshStandardMaterial color={barProps?.barColor} />
+            </mesh>
+        </group>
     ));
 
     const postsFront = Array.from({ length: postProps?.numPosts }).map((_, i) => (
@@ -50,10 +48,17 @@ const Fence = (props) => {
     ));
 
     const barsFront = Array.from({ length: postProps?.numPosts - 1 }).map((_, i) => (
-        <mesh key={i} position={[(i + 0.5) * postDistance - fenceProps?.fenceLength / 2, fenceProps?.fenceHeight - 0.5, 0]}>
-            <boxGeometry args={[postDistance, 0.2, 0.05]} />
-            <meshStandardMaterial color={barProps?.barColor} />
-        </mesh>
+        <group>
+            <mesh key={i} position={[(i + 0.5) * postDistance - fenceProps?.fenceLength / 2, fenceProps?.fenceHeight - 0.5, 0]}>
+                <boxGeometry args={[postDistance, 0.2, 0.05]} />
+                <meshStandardMaterial color={barProps?.barColor} />
+            </mesh>
+
+            <mesh key={i} position={[(i + 0.5) * postDistance - fenceProps?.fenceLength / 2, fenceProps?.fenceHeight/2, 0]}>
+                <boxGeometry args={[postDistance, 1, 0.05]} />
+                <meshStandardMaterial color={barProps?.barColor} />
+            </mesh>
+        </group>
     ));
 
     const posts = (side === "left") ? postsLeft : postsFront;
